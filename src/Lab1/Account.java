@@ -7,13 +7,13 @@ public class Account {
     private Customer accountHolder;
     private double balance;
 // Constructor
-    public Account(String accountNumber, Customer accountholder, double balance) {
-//        if (accountHolder == null) {
-//            throw new IllegalArgumentException("Account holder cannot be null");
-//        }
+    public Account(String accountNumber, Customer accountHolder, double balance) {
+        if (accountHolder == null) {
+            throw new IllegalArgumentException("Account holder cannot be null");
+        }
         this.accountNumber = accountNumber;
 
-        this.accountHolder = accountholder;
+        this.accountHolder = accountHolder;
         this.balance = balance;
     }
 // getters and setters
