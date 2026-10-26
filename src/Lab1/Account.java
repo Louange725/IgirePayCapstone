@@ -1,14 +1,18 @@
 package Lab1;
+import static Lab1.TransactionType.Deposit;
+import static Lab1.TransactionType.withdrawal;
+
 public class Account {
     private String accountNumber;
     private Customer accountHolder;
     private double balance;
 // Constructor
     public Account(String accountNumber, Customer accountholder, double balance) {
+//        if (accountHolder == null) {
+//            throw new IllegalArgumentException("Account holder cannot be null");
+//        }
         this.accountNumber = accountNumber;
-        if (accountHolder == null) {
-            throw new IllegalArgumentException("Account holder cannot be null");
-        }
+
         this.accountHolder = accountholder;
         this.balance = balance;
     }
@@ -21,11 +25,11 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public Customer getAccountholder() {
+    public Customer getAccountHolder() {
         return accountHolder;
     }
 
-    public void setAccountholder(Customer accountholder) {
+    public void setAccountHolder(Customer accountholder) {
         this.accountHolder = accountholder;
     }
 
@@ -39,18 +43,31 @@ public class Account {
 
 // withdraw method
     public void withdraw(double amount) {
-        if( balance >= amount ) {
+        if( amount <= 0 ) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+       if (amount < balance) {
+            throw new IllegalArgumentException("Insufficient balance");
+        }
             balance -= amount;
-        }
-        else {
-            System.out.println("Insufficient balance");
-        }
 
     }
 // deposit method
     public void deposit(double amount) {
+        if (amount <= 0){
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        }
         balance += amount;
     }
+// ProcessTransaction
+public void processTransaction(Transaction transaction) {
+    switch (transaction.getTransType()) {
+        case Deposit -> deposit(transaction.getAmount());
+        case withdrawal -> withdraw(transaction.getAmount());
+        default -> throw new IllegalArgumentException("Unsupported transaction type");
+    }
+}
+
 // tostring
     @Override
     public String toString() {

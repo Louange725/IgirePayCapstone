@@ -1,8 +1,9 @@
 package Lab1;
 
 public class WalletAccount extends Account{
-    public WalletAccount(String accountNumber, Customer accountholder, double balance) {
-        super(accountNumber, accountholder, balance);
+    private double minBalance = 5000;
+    public WalletAccount(String accountNumber, Customer accountHolder, double balance) {
+        super(accountNumber, accountHolder, balance);
     }
     @Override
     public void deposit(double amount) {
@@ -10,6 +11,13 @@ public class WalletAccount extends Account{
     }
     @Override
     public void withdraw(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+        if (getBalance() - amount < minBalance) {
+            throw new IllegalStateException(
+                    "Withdrawal refused: at least " + minBalance + " must remain on the account");
+        }
         super.withdraw(amount);
     }
 }
