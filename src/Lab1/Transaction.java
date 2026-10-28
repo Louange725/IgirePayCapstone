@@ -11,16 +11,6 @@ public class Transaction {
     private final LocalDateTime timestamp;
     private final String accountNumber;
 
-//// Constructor
-//    public Transaction(String refTransID, double  amount, TransactionType transType, String  accountNumber) {
-//        this.transactionId = UUID.randomUUID().toString();
-//        this.RefTransID= refTransID;
-//        this.amount = amount;
-//        this.transType = transType;
-//        this.accountNumber = accountNumber;
-//        this.timestamp = LocalDateTime.now();
-//    }
-
     public Transaction(String RefTransID, String accountNumber, double amount, TransactionType transType) {
         this.transactionId = UUID.randomUUID().toString();
         this.RefTransID= RefTransID;

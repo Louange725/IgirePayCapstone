@@ -31,7 +31,7 @@ public class AccountDAO {
         }
     }
 
-    // READ: one account (returns null if not found)
+    // find  one account (returns null if not found)
     public Account findById(String account_id) throws SQLException {
         String sql = "SELECT account_id, customer_id, account_type, balance FROM accounts WHERE account_id = ?";
 
@@ -49,7 +49,7 @@ public class AccountDAO {
         return null;
     }
 
-    // READ: all accounts of one customer
+    // find all accounts of one customer
     public List<Account> findByCustomerId(String customer_id) throws SQLException {
         String sql = "SELECT account_id, customer_id, account_type, balance FROM accounts WHERE customer_id = ?";
         List<Account> accounts = new ArrayList<>();
@@ -68,7 +68,7 @@ public class AccountDAO {
         return accounts;
     }
 
-    // UPDATE: set a new balance
+    // update or set a new balance
     public boolean updateBalance(String account_id, double newBalance) throws SQLException {
         String sql = "UPDATE accounts SET balance = ? WHERE account_id = ?";
 
@@ -81,7 +81,7 @@ public class AccountDAO {
         }
     }
 
-    // DELETE: only if the account is inactive (balance = 0)
+    // delete only if the account is inactive (balance = 0)
     public boolean deleteInactive(String account_id) throws SQLException {
         String sql = "DELETE FROM accounts WHERE account_id = ? AND balance = 0";
 
@@ -93,7 +93,7 @@ public class AccountDAO {
         }
     }
 
-    // Helper: turns one database row into WalletAccount or SavingsAccount
+    //  turns one database row into WalletAccount or SavingsAccount
     private Account buildAccount(ResultSet rs) throws SQLException {
         String id = rs.getString("account_id");
         String type = rs.getString("account_type");
@@ -106,7 +106,7 @@ public class AccountDAO {
         return new WalletAccount(id, owner, balance);
     }
 
-    // Used inside a JDBC transaction: the connection comes from the service
+    // a JDBC transaction
     public Account findById(Connection conn, String id) throws SQLException {
         String sql = "SELECT account_id, customer_id, account_type, balance FROM accounts WHERE account_id = ?";
 
@@ -139,7 +139,6 @@ public class AccountDAO {
             return ps.executeUpdate() > 0;
         }
     }
-
     public String findPin(String accountId) throws SQLException {
         String sql = "SELECT pin FROM accounts WHERE account_id = ?";
         try (Connection conn = DBconnection.getConnection();

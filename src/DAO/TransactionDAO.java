@@ -27,7 +27,7 @@ public class TransactionDAO {
             ps.executeUpdate();
         }
     }
-    // READ: history of one account, newest first
+    // history of one account, newest first
     public List<Transaction> findByAccountId(String account_id) throws SQLException {
         String sql = "SELECT transaction_id, account_id, reference_id, transaction_type, amount, created_at "
                 + "FROM transactions WHERE account_id = ? ORDER BY created_at DESC";
@@ -53,7 +53,7 @@ public class TransactionDAO {
         return list;
     }
 
-    // CUSTOM QUERY: find transactions by reference id
+    // find transactions by reference id
     public List<Transaction> findByReferenceId(String referenceId) throws SQLException {
         String sql = "SELECT transaction_id, account_id, reference_id, transaction_type, amount, created_at "
                 + "FROM transactions WHERE reference_id = ?";

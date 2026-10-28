@@ -19,8 +19,8 @@ public class PinService {
         accountDAO.savePin(account_id, pin);
     }
 
-    public boolean validatePin(String accountId, String pin) throws SQLException {
-        String saved = accountDAO.findPin(accountId);
+    public boolean validatePin(String account_id, String pin) throws SQLException {
+        String saved = accountDAO.findPin(account_id);
         return saved != null && saved.equals(pin);
     }
 

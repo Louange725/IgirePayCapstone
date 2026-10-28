@@ -19,6 +19,7 @@ public class TransactionService {
     private final TransactionDAO transactionDAO = new TransactionDAO();
     private final ProcessedRequestDAO processedDAO = new ProcessedRequestDAO();
 
+// deposit
     public void deposit(String accountId, double amount, String referenceId) throws SQLException {
         try (Connection conn = DBconnection.getConnection()) {
             conn.setAutoCommit(false);
@@ -39,7 +40,7 @@ public class TransactionService {
             }
         }
     }
-
+// withdraw
     public void withdraw(String accountId, double amount, String referenceId) throws SQLException {
         try (Connection conn = DBconnection.getConnection()) {
             conn.setAutoCommit(false);
@@ -60,7 +61,7 @@ public class TransactionService {
             }
         }
     }
-
+// transfer
     public void transfer(String fromId, String toId, double amount, String referenceId) throws SQLException {
         if (fromId.equals(toId)) {
             throw new IllegalArgumentException("Cannot transfer to the same account");

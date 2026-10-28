@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CustomerDAO {
 
-    // CREATE: add a new customer
+    // create add a new customer
     public void addCustomer(Customer customer) throws SQLException {
         String sql = "INSERT INTO customers (customer_id, full_name, email, phone_number) VALUES (?, ?, ?, ?)";
 
@@ -25,7 +25,7 @@ public class CustomerDAO {
         }
     }
 
-    // READ: find one customer by id (returns null if not found)
+    // find one customer by id (returns null if not found)
     public Customer findById(String customer_id) throws SQLException {
         String sql = "SELECT customer_id, full_name, email, phone_number FROM customers WHERE customer_id = ?";
 
@@ -47,7 +47,7 @@ public class CustomerDAO {
         return null;
     }
 
-    // READ: get all customers
+    //  get all customers
     public List<Customer> findAll() throws SQLException {
         String sql = "SELECT customer_id, full_name, email, phone_number FROM customers";
         List<Customer> customers = new ArrayList<>();
@@ -66,7 +66,7 @@ public class CustomerDAO {
         }
         return customers;
     }
-    // UPDATE: change customer details
+    // update or change customer details
     public boolean updateCustomer(Customer customer) throws SQLException {
         String sql = "UPDATE customers SET full_name = ?, email = ?, phone_number = ? WHERE customer_id= ?";
 
@@ -82,7 +82,7 @@ public class CustomerDAO {
         }
     }
 
-    // DELETE: remove a customer
+    // delete or remove a customer
     public boolean deleteCustomer(String customer_id) throws SQLException {
         String sql = "DELETE FROM customers WHERE customer_id = ?";
 
@@ -94,7 +94,7 @@ public class CustomerDAO {
         }
     }
 
-    // CUSTOM QUERY: find a customer by email
+    //  find a customer by email
     public Customer findByEmail(String email) throws SQLException {
         String sql = "SELECT customer_id, full_name, email, phone_number FROM customers WHERE email = ?";
 
