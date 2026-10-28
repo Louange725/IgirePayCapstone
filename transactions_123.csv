@@ -1,0 +1,4 @@
+transaction_id,reference_id,account_number,type,amount,timestamp
+4ade5b1a-0c2f-4490-a3a9-dbd49387ab1f,009,123,Deposit,5000.0,2026-10-28T00:00
+9991418f-b37c-4772-be93-6d06ad117bc1,007,123,withdrawal,4000.0,2026-10-28T00:00
+ecb21b14-3cc1-4d26-a85b-d48e7911ddfe,,123,Transfer,50000.0,2026-10-28T00:00

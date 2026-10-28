@@ -8,15 +8,15 @@ public class PinService {
 
     private final AccountDAO accountDAO = new AccountDAO();
 
-    public void createPin(String accountId, String pin) throws SQLException {
+    public void createPin(String account_id, String pin) throws SQLException {
         checkFormat(pin);
-        if (accountDAO.findPin(accountId) == null) {
-            throw new IllegalArgumentException("Account not found: " + accountId);
+        if (accountDAO.findPin(account_id) == null) {
+            throw new IllegalArgumentException("Account not found: " + account_id);
         }
-        if (accountDAO.findPin(accountId) != null) {
+        if (accountDAO.findPin(account_id) != null) {
             throw new IllegalStateException("This account already has a PIN. Use change PIN.");
         }
-        accountDAO.savePin(accountId, pin);
+        accountDAO.savePin(account_id, pin);
     }
 
     public boolean validatePin(String accountId, String pin) throws SQLException {

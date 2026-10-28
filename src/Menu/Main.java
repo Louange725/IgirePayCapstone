@@ -11,9 +11,6 @@ public class Main {
         TransactionMenu transactionMenu = new TransactionMenu();
         ReportMenu reportMenu = new ReportMenu();
         PinMenu pinMenu = new PinMenu();
-
-
-
         while (running) {
             System.out.println("\n===== IGIREPAY =====");
             System.out.println("1. Customer Management");
