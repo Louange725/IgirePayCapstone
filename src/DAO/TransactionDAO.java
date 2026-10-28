@@ -91,4 +91,25 @@ public class TransactionDAO {
             ps.executeUpdate();
         }
     }
+
+    public List<String> dailySummary(java.time.LocalDate date) throws SQLException {
+        String sql = "SELECT transaction_type, COUNT(*) AS total_count, SUM(amount) AS total_amount "
+                + "FROM transactions WHERE created_at::date = ? GROUP BY transaction_type";
+        List<String> lines = new ArrayList<>();
+
+        try (Connection conn = DBconnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setDate(1, java.sql.Date.valueOf(date));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lines.add(rs.getString("transaction_type")
+                            + ": " + rs.getInt("total_count") + " transaction(s), total "
+                            + rs.getDouble("total_amount"));
+                }
+            }
+        }
+        return lines;
+    }
 }
