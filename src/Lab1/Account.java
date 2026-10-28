@@ -1,4 +1,7 @@
 package Lab1;
+import Exceptions.InsufficientBalanceException;
+import Exceptions.InvalidAmountException;
+
 import static Lab1.TransactionType.Deposit;
 import static Lab1.TransactionType.withdrawal;
 
@@ -44,18 +47,18 @@ public class Account {
 // withdraw method
     public void withdraw(double amount) {
         if( amount <= 0 ) {
-            throw new IllegalArgumentException("Amount must be greater than zero");
+            throw new InvalidAmountException("Amount must be greater than zero");
         }
-       if (amount < balance) {
-            throw new IllegalArgumentException("Insufficient balance");
+
+       if (amount > balance) {
+            throw new InsufficientBalanceException("Insufficient balance");
         }
             balance -= amount;
-
     }
 // deposit method
     public void deposit(double amount) {
         if (amount <= 0){
-            throw new IllegalArgumentException("Amount must be greater than 0");
+            throw new InvalidAmountException("Amount must be greater than 0");
         }
         balance += amount;
     }

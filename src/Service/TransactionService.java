@@ -3,6 +3,8 @@ package Service;
 import DAO.ProcessedRequestDAO;
 import DAO.AccountDAO;
 import DAO.TransactionDAO;
+import Exceptions.DuplicateTransactionException;
+import Exceptions.InvalidAccountException;
 import Lab1.Account;
 import Lab1.Transaction;
 import Lab1.TransactionType;
@@ -94,14 +96,14 @@ public class TransactionService {
     // Saves the reference id. If it already exists, the request is a duplicate.
     private void registerReference(Connection conn, String referenceId) throws SQLException {
         if (!processedDAO.save(conn, referenceId)) {
-            throw new IllegalStateException("Duplicate transaction: " + referenceId);
+            throw new DuplicateTransactionException("Duplicate transaction: " + referenceId);
         }
     }
 
     private Account loadAccount(Connection conn, String accountId) throws SQLException {
         Account account = accountDAO.findById(conn, accountId);
         if (account == null) {
-            throw new IllegalArgumentException("Account not found: " + accountId);
+            throw new InvalidAccountException("Account not found: " + accountId);
         }
         return account;
     }

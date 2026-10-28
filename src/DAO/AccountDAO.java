@@ -129,4 +129,29 @@ public class AccountDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
+    public boolean savePin(String accountId, String pin) throws SQLException {
+        String sql = "UPDATE accounts SET pin = ? WHERE account_id = ?";
+        try (Connection conn = DBconnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, pin);
+            ps.setString(2, accountId);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public String findPin(String accountId) throws SQLException {
+        String sql = "SELECT pin FROM accounts WHERE account_id = ?";
+        try (Connection conn = DBconnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("pin");
+                }
+            }
+        }
+        return null;
+    }
 }
+
