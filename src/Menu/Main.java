@@ -10,6 +10,7 @@ public class Main {
         AccountMenu accountMenu = new AccountMenu();
         TransactionMenu transactionMenu = new TransactionMenu();
         ReportMenu reportMenu = new ReportMenu();
+        PinMenu pinMenu = new PinMenu();
 
 
 
@@ -19,6 +20,7 @@ public class Main {
             System.out.println("2. Account Management");
             System.out.println("3. Transaction Management");
             System.out.println("4. Reports");
+            System.out.println("5. PIN Management");
             System.out.println("0. Exit");
             System.out.print("Choose: ");
 
@@ -29,6 +31,7 @@ public class Main {
                 case "2" -> accountMenu.show(scanner);
                 case "3" -> transactionMenu.show(scanner);
                 case "4" -> reportMenu.show(scanner);
+                case "5" -> pinMenu.show(scanner);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid choice, try again.");
             }
