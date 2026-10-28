@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDAO {
-
     private final CustomerDAO customerDAO = new CustomerDAO();
 
     // CREATE
@@ -93,6 +92,7 @@ public class AccountDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
     // Helper: turns one database row into WalletAccount or SavingsAccount
     private Account buildAccount(ResultSet rs) throws SQLException {
         String id = rs.getString("account_id");
@@ -104,5 +104,29 @@ public class AccountDAO {
             return new SavingsAccount(id, owner, balance);
         }
         return new WalletAccount(id, owner, balance);
+    }
+
+    // Used inside a JDBC transaction: the connection comes from the service
+    public Account findById(Connection conn, String id) throws SQLException {
+        String sql = "SELECT account_id, customer_id, account_type, balance FROM accounts WHERE account_id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return buildAccount(rs);
+                }
+            }
+        }
+        return null;
+    }
+    public boolean updateBalance(Connection conn, String accountId, double newBalance) throws SQLException {
+        String sql = "UPDATE accounts SET balance = ? WHERE account_id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setDouble(1, newBalance);
+            ps.setString(2, accountId);
+            return ps.executeUpdate() > 0;
+        }
     }
 }

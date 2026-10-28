@@ -78,4 +78,17 @@ public class TransactionDAO {
         }
         return list;
     }
+    public void save(Connection conn, Transaction t) throws SQLException {
+        String sql = "INSERT INTO transactions (transaction_id, account_id, reference_id, transaction_type, amount) "
+                + "VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, t.getTransactionId());
+            ps.setString(2, t.getAccountNumber());
+            ps.setString(3, t.getRefTransID());
+            ps.setString(4, t.getTransType().name());
+            ps.setDouble(5, t.getAmount());
+            ps.executeUpdate();
+        }
+    }
 }

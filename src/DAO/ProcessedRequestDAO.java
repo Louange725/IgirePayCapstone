@@ -32,4 +32,15 @@ public class ProcessedRequestDAO {
             return ps.executeUpdate() > 0;
         }
     }
+
+
+    public boolean save(Connection conn, String referenceId) throws SQLException {
+        String sql = "INSERT INTO processed_requests (reference_id) VALUES (?) "
+                + "ON CONFLICT (reference_id) DO NOTHING";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, referenceId);
+            return ps.executeUpdate() > 0;
+        }
+    }
 }
