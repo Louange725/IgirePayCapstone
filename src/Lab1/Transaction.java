@@ -30,6 +30,15 @@ public class Transaction {
         this.timestamp = LocalDateTime.now();
 
     }
+    public Transaction(String transactionId, String RefTransID, String accountNumber,
+                       double amount, TransactionType transType, LocalDateTime timestamp) {
+        this.transactionId = transactionId;
+        this.RefTransID = RefTransID;
+        this.accountNumber = accountNumber;
+        this.amount = amount;
+        this.transType = transType;
+        this.timestamp = timestamp;
+    }
 
     // getters
     public String  getTransactionId() {

@@ -1,7 +1,6 @@
 package Lab1;
 import java.util.ArrayList;
 import java.util.List;
-
 public class Customer {
     // customer fields
     private String customerId;
@@ -9,8 +8,6 @@ public class Customer {
     private String phoneNumber;
     private String email;
     private List<Account> accounts = new ArrayList<>();
-
-
 // Constructor
     public Customer(String customerId, String fullName, String phoneNumber, String email) {
         this.customerId = customerId;
